@@ -38,7 +38,7 @@ app.get("/blogs", async (req, res) => {
 // get api ->blogs/:id(single data)
 app.get("/blogs/:id", async (req, res) => {
   const id = req.params.id;
-  const blog = await Blog.findById(id );
+  const blog = await Blog.findById(id);
   res.json({
     status: 200,
     message: "blog fetched sucessfully",
@@ -63,7 +63,22 @@ app.post("/createBlog", async (req, res) => {
     message: "Blog created sucessfully",
   });
 });
+// update blog api
+app.patch("/blogs/:id", async (req, res) => {
+  const id = req.params.id;
+  const title = req.body.title;
+  const subTitle = req.body.subTitle;
+  const description = req.body.description;
 
+  await Blog.findByIdAndUpdate(id, {
+    title: title,
+    subTitle: subTitle,
+    description: description,
+  });
+  res.status(200).json({
+    message: "Blog updated successfully",
+  });
+});
 app.listen(2000, () => {
   console.log("Nodejs has started at port 2000");
 });
