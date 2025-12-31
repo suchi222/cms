@@ -79,6 +79,15 @@ app.patch("/blogs/:id", async (req, res) => {
     message: "Blog updated successfully",
   });
 });
+// DELETE API
+app.delete("/blogs/:id", async (req, res) => {
+  const id = req.params.id;
+
+  await Blog.findByIdAndDelete(id);
+  res.status(200).json({
+    message: "deleted successfully",
+  });
+});
 app.listen(2000, () => {
   console.log("Nodejs has started at port 2000");
 });
